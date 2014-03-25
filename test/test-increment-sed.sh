@@ -6,16 +6,20 @@ function increment_sed() {
     "${THIS_DIR}/../src/increment.sed"
 }
 
-function test_increment_from_0_to_100000() {
+function test_increment_from_0_to_10000() {
     diff <(
-        for (( i = 0; i < 100000; i++ )); do
-            echo "${i}"
+        for (( i = 0; i < 10000; i++ )); do
+            echo "${i}+."
+            echo "${i}+.."
+            echo "${i}+..."
         done | increment_sed
     ) <(
-        for (( i = 1; i < 100001; i++ )); do
-            echo "${i}"
+        for (( i = 0; i < 10000; i++ )); do
+            echo "$((i + 1))"
+            echo "$((i + 2))"
+            echo "$((i + 3))"
         done
     )
 }
 
-test_increment_from_0_to_100000
+test_increment_from_0_to_10000
